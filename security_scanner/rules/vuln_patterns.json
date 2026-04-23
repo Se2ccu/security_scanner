@@ -1,0 +1,126 @@
+{
+  "patterns": [
+    {
+      "name": "SQL Injection",
+      "cwe_id": "CWE-89",
+      "description": "通过用户输入拼接SQL查询，导致攻击者可以执行任意SQL命令",
+      "check_rules": [
+        "字符串拼接SQL查询",
+        "未使用参数化查询",
+        "直接使用用户输入构建SQL",
+        "ORM误用导致注入",
+        "字符串格式化构建SQL"
+      ],
+      "applicable_modules": ["database", "api", "web"]
+    },
+    {
+      "name": "Command Injection",
+      "cwe_id": "CWE-78",
+      "description": "通过用户输入执行系统命令，攻击者可执行任意系统命令",
+      "check_rules": [
+        "使用system/exec/popen等执行系统命令",
+        "字符串拼接命令参数",
+        "未校验用户输入用于命令",
+        "shell=True参数使用"
+      ],
+      "applicable_modules": ["system", "api", "cli"]
+    },
+    {
+      "name": "Path Traversal",
+      "cwe_id": "CWE-22",
+      "description": "通过路径穿越访问系统敏感文件",
+      "check_rules": [
+        "文件路径拼接用户输入",
+        "未校验路径规范化和符号链接",
+        "使用用户输入访问文件系统",
+        "未验证文件路径边界"
+      ],
+      "applicable_modules": ["file", "api", "web"]
+    },
+    {
+      "name": "Cross-Site Scripting (XSS)",
+      "cwe_id": "CWE-79",
+      "description": "未转义的用户输入被当作HTML/JS执行",
+      "check_rules": [
+        "未转义的用户输入输出到HTML",
+        "直接拼接HTML响应",
+        "富文本过滤不严",
+        "innerHTML直接赋值用户输入"
+      ],
+      "applicable_modules": ["web", "api"]
+    },
+    {
+      "name": "Authentication Bypass",
+      "cwe_id": "CWE-287",
+      "description": "认证检查可被绕过，攻击者可能无需凭据访问系统",
+      "check_rules": [
+        "认证检查可被绕过",
+        "弱密码校验逻辑",
+        "会话固定漏洞",
+        "权限检查缺失或不完整",
+        "基于客户端的认证检查",
+        "认证绕过逻辑（如注释掉检查）"
+      ],
+      "applicable_modules": ["auth", "api", "web"]
+    },
+    {
+      "name": "Insecure Deserialization",
+      "cwe_id": "CWE-502",
+      "description": "反序列化用户可控数据导致代码执行",
+      "check_rules": [
+        "反序列化用户可控数据",
+        "使用pickle危险的加载方式",
+        "使用yaml危险的load方式",
+        "JSON反序列化用户输入"
+      ],
+      "applicable_modules": ["api", "web", "database"]
+    },
+    {
+      "name": "Server-Side Request Forgery (SSRF)",
+      "cwe_id": "CWE-918",
+      "description": "服务器被诱导访问任意URL，包括内部服务",
+      "check_rules": [
+        "用户输入作为URL/URI参数",
+        "未校验URL目标地址",
+        "跟随重定向到内部服务",
+        "url参数未限制协议"
+      ],
+      "applicable_modules": ["api", "web"]
+    },
+    {
+      "name": "Insecure Direct Object Reference (IDOR)",
+      "cwe_id": "CWE-639",
+      "description": "资源访问未验证所有权，用户可访问他人资源",
+      "check_rules": [
+        "资源访问未验证所有权",
+        "直接使用用户ID访问他人资源",
+        "顺序递增的ID可被猜测",
+        "缺乏对象级别授权检查"
+      ],
+      "applicable_modules": ["api", "web"]
+    },
+    {
+      "name": "Sensitive Data Exposure",
+      "cwe_id": "CWE-200",
+      "description": "敏感数据如密码、密钥存储在代码或日志中",
+      "check_rules": [
+        "硬编码密码或密钥",
+        "敏感数据在日志中输出",
+        "敏感文件可被外部访问",
+        "不安全的密码存储方式"
+      ],
+      "applicable_modules": ["auth", "config", "api"]
+    },
+    {
+      "name": "CSRF",
+      "cwe_id": "CWE-352",
+      "description": "跨站请求伪造，诱导用户执行非预期操作",
+      "check_rules": [
+        "缺少CSRF Token验证",
+        "重要操作无二次验证",
+        "Referer检查可被绕过"
+      ],
+      "applicable_modules": ["web", "api"]
+    }
+  ]
+}
